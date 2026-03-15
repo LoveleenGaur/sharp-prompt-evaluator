@@ -61,6 +61,13 @@ def show_api_error(exc: Exception) -> None:
 
 
 # ============================================================
+# LOAD API KEY
+# ============================================================
+secret_api_key = st.secrets.get("GROQ_API_KEY", "")
+api_key = secret_api_key
+
+
+# ============================================================
 # CUSTOM CSS
 # ============================================================
 st.markdown("""
@@ -185,12 +192,15 @@ st.markdown("""
 with st.sidebar:
     st.markdown("### ⚙️ Settings")
 
-    api_key = st.text_input(
-        "Groq API Key",
-        type="password",
-        placeholder="gsk_...",
-        help="Get a key from console.groq.com/keys"
-    )
+    if not secret_api_key:
+        api_key = st.text_input(
+            "Groq API Key",
+            type="password",
+            placeholder="gsk_...",
+            help="Get a key from console.groq.com/keys"
+        )
+    else:
+        st.success("Groq API key loaded securely from app secrets.")
 
     st.markdown("---")
 
@@ -294,7 +304,7 @@ with col2:
 # ============================================================
 if evaluate_btn:
     if not api_key:
-        st.error("Please enter your Groq API key in the sidebar. You can create one at console.groq.com/keys")
+        st.error("Groq API key not found. Please add it in Streamlit app secrets.")
     elif not user_prompt.strip():
         st.warning("Please paste a prompt to evaluate.")
     else:
