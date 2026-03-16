@@ -4,6 +4,7 @@ Built on the SHARP Framework by Loveleen Gaur
 Powered by Groq
 """
 
+import html
 import re
 import streamlit as st
 from groq import Groq
@@ -60,6 +61,10 @@ def show_api_error(exc: Exception) -> None:
         st.error(f"Something went wrong: {error_text}")
 
 
+def safe_html(text: str) -> str:
+    return html.escape(text).replace("\n", "<br>")
+
+
 # ============================================================
 # LOAD API KEY
 # ============================================================
@@ -72,115 +77,367 @@ api_key = secret_api_key
 # ============================================================
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
-    .stApp { font-family: 'Space Grotesk', sans-serif; }
+    :root {
+        --bg: #0b1020;
+        --sidebar: #0f172a;
+        --surface: #121a2b;
+        --surface-2: #172033;
+        --border: #24324a;
+        --text: #f8fafc;
+        --muted: #aab4c3;
+        --accent: #ff7a1a;
+        --accent-hover: #ff933d;
+        --accent-soft: rgba(255, 122, 26, 0.10);
+        --good: #22c55e;
+        --warn: #f59e0b;
+        --bad: #ef4444;
+        --radius: 16px;
+    }
+
+    html, body, [class*="css"] {
+        font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .stApp {
+        background: radial-gradient(circle at top left, rgba(255,122,26,0.08), transparent 26%), var(--bg);
+        color: var(--text);
+    }
+
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #0f172a 0%, #0c1324 100%);
+        border-right: 1px solid rgba(255,255,255,0.04);
+    }
+
+    [data-testid="stSidebar"] * {
+        color: var(--text);
+    }
+
+    #MainMenu, footer, header {
+        visibility: hidden;
+    }
+
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        max-width: 1200px;
+    }
 
     .hero-container {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        border: 1px solid #FF6B35;
-        border-radius: 16px;
-        padding: 2.5rem 2rem;
-        margin-bottom: 2rem;
+        background: linear-gradient(135deg, #121a2b 0%, #13213f 55%, #10294e 100%);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 22px;
+        padding: 2.5rem 2.25rem 2rem;
+        margin-bottom: 1.75rem;
         text-align: center;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.24);
     }
+
     .hero-container::before {
         content: '';
         position: absolute;
-        top: -50%; left: -50%;
-        width: 200%; height: 200%;
-        background: radial-gradient(circle at 30% 50%, rgba(255,107,53,0.08) 0%, transparent 50%);
+        inset: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(255,122,26,0.14), transparent 28%);
         pointer-events: none;
     }
+
     .hero-title {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 2.8rem; font-weight: 700;
-        background: linear-gradient(135deg, #FF6B35, #FFB347);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0.3rem; letter-spacing: -1px;
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.05;
+        color: #fff7ed;
+        margin-bottom: 0.55rem;
+        letter-spacing: -1.4px;
     }
-    .hero-subtitle { color: #8892a4; font-size: 1.1rem; margin-bottom: 1rem; }
-    .hero-author { color: #FFB347; font-size: 0.95rem; font-weight: 500; }
+
+    .hero-title .blade {
+        color: var(--accent);
+        margin-right: 0.4rem;
+    }
+
+    .hero-subtitle {
+        color: var(--muted);
+        font-size: 1.06rem;
+        margin-bottom: 0.85rem;
+    }
+
+    .hero-author {
+        display: inline-block;
+        color: #ffd7b0;
+        font-size: 0.92rem;
+        background: rgba(255,122,26,0.10);
+        border: 1px solid rgba(255,122,26,0.18);
+        padding: 0.45rem 0.85rem;
+        border-radius: 999px;
+        margin-bottom: 1rem;
+    }
 
     .sharp-bar {
-        display: flex; justify-content: center; gap: 0.5rem;
-        margin: 1.2rem 0 0.5rem; flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(110px, 1fr));
+        gap: 0.8rem;
+        margin-top: 1rem;
     }
+
     .sharp-letter {
-        background: rgba(255,107,53,0.12);
-        border: 1px solid rgba(255,107,53,0.3);
-        border-radius: 10px; padding: 0.5rem 1rem;
-        text-align: center; min-width: 140px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 14px;
+        padding: 0.85rem 0.75rem;
+        text-align: center;
+        backdrop-filter: blur(8px);
     }
-    .sharp-letter-char { font-size: 1.5rem; font-weight: 700; color: #FF6B35; }
-    .sharp-letter-word { font-size: 0.75rem; color: #8892a4; margin-top: 2px; }
 
-    .score-container {
-        background: linear-gradient(135deg, #1a1a2e, #16213e);
-        border-radius: 16px; padding: 2rem; text-align: center;
-        border: 1px solid #2a2a4a; margin: 1rem 0;
+    .sharp-letter-char {
+        font-size: 1.55rem;
+        font-weight: 700;
+        color: var(--accent);
+        line-height: 1.1;
     }
-    .score-big {
-        font-size: 4rem; font-weight: 700;
-        font-family: 'JetBrains Mono', monospace;
-    }
-    .score-label { font-size: 1.3rem; font-weight: 600; margin-top: 0.5rem; }
 
-    .rating-blunt { color: #ff4444; }
-    .rating-getting { color: #ffaa00; }
-    .rating-sharp { color: #44bb44; }
-    .rating-razor { color: #00ffaa; }
+    .sharp-letter-word {
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-top: 0.25rem;
+    }
 
-    .dim-card {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid #2a2a4a;
-        border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 0.8rem;
+    .section-title {
+        color: var(--text);
+        font-size: 1.85rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+        letter-spacing: -0.5px;
     }
-    .dim-header {
-        display: flex; justify-content: space-between;
-        align-items: center; margin-bottom: 0.4rem;
-    }
-    .dim-name { font-weight: 600; font-size: 1rem; color: #FFB347; }
-    .dim-score {
-        font-family: 'JetBrains Mono', monospace;
-        font-weight: 700; font-size: 1.1rem;
-        padding: 2px 10px; border-radius: 6px;
-    }
-    .dim-score-0 { background: rgba(255,68,68,0.2); color: #ff4444; }
-    .dim-score-1 { background: rgba(255,170,0,0.2); color: #ffaa00; }
-    .dim-score-2 { background: rgba(68,187,68,0.2); color: #44bb44; }
-    .dim-explanation { color: #8892a4; font-size: 0.9rem; line-height: 1.5; }
 
-    .improved-box {
-        background: linear-gradient(135deg, rgba(0,255,170,0.05), rgba(68,187,68,0.05));
-        border: 1px solid rgba(0,255,170,0.3);
-        border-radius: 12px; padding: 1.5rem; margin: 1rem 0;
-        font-size: 0.95rem; line-height: 1.6; color: #e0e0e0;
+    .section-subtitle {
+        color: var(--muted);
+        margin-bottom: 1.1rem;
+        font-size: 0.97rem;
+    }
+
+    .sidebar-chip {
+        background: rgba(34, 197, 94, 0.10);
+        border: 1px solid rgba(34, 197, 94, 0.22);
+        color: #b8f5ca;
+        border-radius: 12px;
+        padding: 0.85rem 0.95rem;
+        font-size: 0.92rem;
+        margin-bottom: 1rem;
     }
 
     .sidebar-info {
-        background: rgba(255,107,53,0.08);
-        border: 1px solid rgba(255,107,53,0.2);
-        border-radius: 10px; padding: 1rem; margin-bottom: 1rem;
-        font-size: 0.85rem; color: #b0b8c8; line-height: 1.6;
+        background: var(--surface);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 16px;
+        padding: 1rem 1rem 0.95rem;
+        margin-bottom: 1rem;
+        color: var(--muted);
+        font-size: 0.88rem;
+        line-height: 1.75;
     }
 
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
+    .sidebar-info strong {
+        color: var(--text);
+    }
+
+    .stTextArea label, .stSelectbox label, .stTextInput label {
+        color: var(--text) !important;
+        font-weight: 600 !important;
+    }
 
     .stTextArea textarea {
         font-family: 'JetBrains Mono', monospace !important;
-        font-size: 0.95rem !important;
-        border-color: #2a2a4a !important;
-        background-color: #0E1117 !important;
+        font-size: 0.98rem !important;
+        border-radius: 18px !important;
+        border: 1px solid var(--border) !important;
+        background: #0f172a !important;
+        color: #eef2ff !important;
+        min-height: 210px !important;
     }
+
     .stTextArea textarea:focus {
-        border-color: #FF6B35 !important;
-        box-shadow: 0 0 0 1px #FF6B35 !important;
+        border-color: rgba(255,122,26,0.65) !important;
+        box-shadow: 0 0 0 1px rgba(255,122,26,0.4) !important;
+    }
+
+    .stTextInput input, .stSelectbox div[data-baseweb="select"] > div {
+        background: #0f172a !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text) !important;
+        border-radius: 12px !important;
+    }
+
+    .stButton button {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%) !important;
+        color: white !important;
+        border: 0 !important;
+        border-radius: 14px !important;
+        font-weight: 700 !important;
+        font-size: 1rem !important;
+        padding: 0.85rem 1rem !important;
+        box-shadow: 0 10px 24px rgba(255,122,26,0.22) !important;
+    }
+
+    .stButton button:hover {
+        filter: brightness(1.03);
+        transform: translateY(-1px);
+    }
+
+    .stMarkdown h3 {
+        color: var(--text);
+        letter-spacing: -0.4px;
+    }
+
+    .score-container {
+        background: linear-gradient(135deg, #111827 0%, #16213a 100%);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 22px;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        margin: 1rem 0 1.5rem;
+        box-shadow: 0 18px 45px rgba(0,0,0,0.20);
+    }
+
+    .score-big {
+        font-size: 4rem;
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+        line-height: 1;
+    }
+
+    .score-label {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-top: 0.65rem;
+        letter-spacing: 0.2px;
+    }
+
+    .rating-blunt { color: var(--bad); }
+    .rating-getting { color: var(--warn); }
+    .rating-sharp { color: var(--good); }
+    .rating-razor { color: #38bdf8; }
+
+    .dim-card {
+        background: var(--surface);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 16px;
+        padding: 1rem 1.15rem;
+        margin-bottom: 0.85rem;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+    }
+
+    .dim-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .dim-name {
+        font-weight: 700;
+        font-size: 1rem;
+        color: #ffd7b0;
+    }
+
+    .dim-score {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
+        font-size: 0.95rem;
+        padding: 0.3rem 0.65rem;
+        border-radius: 999px;
+        min-width: 60px;
+        text-align: center;
+    }
+
+    .dim-score-0 { background: rgba(239,68,68,0.12); color: #ff8f8f; }
+    .dim-score-1 { background: rgba(245,158,11,0.14); color: #ffd27c; }
+    .dim-score-2 { background: rgba(34,197,94,0.14); color: #9ce7b4; }
+
+    .dim-explanation {
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.65;
+    }
+
+    .result-card {
+        background: var(--surface);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 18px;
+        padding: 1.2rem 1.25rem;
+        margin: 0.85rem 0 1rem;
+        color: var(--muted);
+        line-height: 1.7;
+    }
+
+    .improved-box {
+        background: linear-gradient(135deg, rgba(255,122,26,0.07), rgba(255,255,255,0.02));
+        border: 1px solid rgba(255,122,26,0.22);
+        border-radius: 18px;
+        padding: 1.2rem 1.25rem;
+        margin: 0.75rem 0 0.9rem;
+        font-size: 0.98rem;
+        line-height: 1.75;
+        color: #fff5eb;
+    }
+
+    .tips-card {
+        background: var(--surface);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 18px;
+        padding: 1.1rem 1.2rem;
+        margin-top: 0.5rem;
+        color: var(--muted);
+        line-height: 1.75;
+    }
+
+    .tips-card ol {
+        margin: 0;
+        padding-left: 1.1rem;
+    }
+
+    .tips-card li {
+        margin-bottom: 0.55rem;
+    }
+
+    .tips-card strong {
+        color: var(--text);
+    }
+
+    .stCodeBlock {
+        border-radius: 16px !important;
+        border: 1px solid rgba(255,255,255,0.06) !important;
+    }
+
+    .stAlert {
+        border-radius: 14px !important;
+        border: 1px solid rgba(255,255,255,0.07) !important;
+    }
+
+    .stExpander {
+        border-radius: 16px !important;
+        border: 1px solid rgba(255,255,255,0.06) !important;
+        background: var(--surface) !important;
+    }
+
+    div[data-testid="stExpander"] {
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 16px;
+        background: var(--surface);
+        overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+        .sharp-bar {
+            grid-template-columns: repeat(2, minmax(120px, 1fr));
+        }
+
+        .hero-title {
+            font-size: 2.3rem;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -200,7 +457,10 @@ with st.sidebar:
             help="Get a key from console.groq.com/keys"
         )
     else:
-        st.success("Groq API key loaded securely from app secrets.")
+        st.markdown(
+            '<div class="sidebar-chip">Groq API key loaded securely from app secrets.</div>',
+            unsafe_allow_html=True
+        )
 
     st.markdown("---")
 
@@ -224,25 +484,25 @@ with st.sidebar:
 
     st.markdown("""
     <div class="sidebar-info">
-        <strong>💡 How it works:</strong><br><br>
+        <strong>How it works</strong><br><br>
         1. Paste your prompt<br>
         2. Select the task type<br>
         3. Click Evaluate<br>
-        4. Get your SHARP score + improved prompt<br><br>
-        <strong>Scoring:</strong><br>
-        🔴 0-3: Blunt<br>
-        🟡 4-6: Getting There<br>
-        🟢 7-8: Sharp<br>
-        ⚡ 9-10: Razor Sharp
+        4. Get your SHARP score and an improved prompt<br><br>
+        <strong>Scoring</strong><br>
+        0-3: Blunt<br>
+        4-6: Getting There<br>
+        7-8: Sharp<br>
+        9-10: Razor Sharp
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("---")
     st.markdown("""
-    <div style="text-align:center; color:#666; font-size:0.8rem;">
-        Built on the <strong style="color:#FF6B35;">SHARP Framework</strong><br>
-        by <strong style="color:#FFB347;">Loveleen Gaur</strong><br><br>
-        <span style="color:#444;">Powered by Groq</span>
+    <div style="text-align:center; color:#94a3b8; font-size:0.84rem; line-height:1.7;">
+        Built on the <strong style="color:#FF7A1A;">SHARP Framework</strong><br>
+        by <strong style="color:#FFD7B0;">Loveleen Gaur</strong><br><br>
+        <span style="color:#64748b;">Powered by Groq</span>
     </div>
     """, unsafe_allow_html=True)
 
@@ -252,8 +512,8 @@ with st.sidebar:
 # ============================================================
 st.markdown("""
 <div class="hero-container">
-    <div class="hero-title">🔪 SHARP Prompt Evaluator</div>
-    <div class="hero-subtitle">Evaluate, Score & Improve Your AI Prompts Instantly</div>
+    <div class="hero-title"><span class="blade">🔪</span>SHARP Prompt Evaluator</div>
+    <div class="hero-subtitle">Evaluate, score, and improve your AI prompts with a sharper visual and analytical experience.</div>
     <div class="hero-author">Built on the SHARP Framework by Loveleen Gaur</div>
     <div class="sharp-bar">
         <div class="sharp-letter">
@@ -284,13 +544,16 @@ st.markdown("""
 # ============================================================
 # MAIN INPUT
 # ============================================================
+st.markdown('<div class="section-title">Evaluate your prompt</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-subtitle">Paste a draft below. The evaluator will score it across all five SHARP dimensions and rewrite it into a stronger prompt.</div>', unsafe_allow_html=True)
+
 user_prompt = st.text_area(
     "📝 Paste your prompt here:",
-    height=180,
-    placeholder="Example: Write something about AI...\n\nPaste the prompt you want evaluated and click 'Evaluate My Prompt' below."
+    height=210,
+    placeholder="Example: Explain neuroplasticity for undergraduate psychology students in 250 words using a formal tone and 3 recent examples."
 )
 
-col1, col2, col3 = st.columns([1, 2, 1])
+col1, col2, col3 = st.columns([1, 1.8, 1])
 with col2:
     evaluate_btn = st.button(
         "🔪 Evaluate My Prompt",
@@ -337,7 +600,7 @@ if evaluate_btn:
                     st.markdown(f"""
                     <div class="score-container">
                         <div class="score-big {rating_class}">{score_num}/10</div>
-                        <div class="score-label {rating_class}">{emoji} {rating_text}</div>
+                        <div class="score-label {rating_class}">{emoji} {html.escape(rating_text)}</div>
                     </div>
                     """, unsafe_allow_html=True)
 
@@ -370,30 +633,45 @@ if evaluate_btn:
                                 st.markdown(f"""
                                 <div class="dim-card">
                                     <div class="dim-header">
-                                        <span class="dim-name">{dim_key}</span>
+                                        <span class="dim-name">{html.escape(dim_key)}</span>
                                         <span class="dim-score dim-score-{d_score}">{d_score}/2</span>
                                     </div>
-                                    <div class="dim-explanation">{d_explain}</div>
+                                    <div class="dim-explanation">{safe_html(d_explain)}</div>
                                 </div>
                                 """, unsafe_allow_html=True)
 
                     elif "WHAT'S MISSING" in section:
                         st.markdown("### 🔍 What's Missing")
                         content = section.replace("WHAT'S MISSING", "").strip()
-                        st.markdown(content)
+                        st.markdown(
+                            f'<div class="result-card">{safe_html(content)}</div>',
+                            unsafe_allow_html=True
+                        )
 
                     elif "IMPROVED SHARP PROMPT" in section:
                         st.markdown("### ✨ Improved SHARP Prompt")
                         content = section.replace("IMPROVED SHARP PROMPT", "").strip()
-                        st.markdown(f"""
-                        <div class="improved-box">{content}</div>
-                        """, unsafe_allow_html=True)
+                        st.markdown(
+                            f'<div class="improved-box">{safe_html(content)}</div>',
+                            unsafe_allow_html=True
+                        )
                         st.code(content, language=None)
 
                     elif "3 TIPS TO REMEMBER" in section:
                         st.markdown("### 💡 3 Tips to Remember")
                         content = section.replace("3 TIPS TO REMEMBER", "").strip()
-                        st.markdown(content)
+                        tips = [line.strip("-• ").strip() for line in content.splitlines() if line.strip()]
+                        if tips:
+                            tips_html = "".join([f"<li>{safe_html(tip)}</li>" for tip in tips])
+                            st.markdown(
+                                f'<div class="tips-card"><ol>{tips_html}</ol></div>',
+                                unsafe_allow_html=True
+                            )
+                        else:
+                            st.markdown(
+                                f'<div class="tips-card">{safe_html(content)}</div>',
+                                unsafe_allow_html=True
+                            )
 
                     elif "SHARP SCORE" in section:
                         pass
