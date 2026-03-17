@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Academic Summary Prompt",
+    "task": "Write a prompt that asks AI to summarize a research article for MBA students.",
+    "success_criteria": [
+      "includes audience context",
+      "defines the AI role",
+      "states the task clearly",
+      "sets length or tone rules",
+      "defines output format"
+    ]
+  },
+  {
+    "title": "Marketing Email Prompt",
+    "task": "Write a prompt asking AI to draft a product launch email for a skincare brand.",
+    "success_criteria": [
+      "defines target audience",
+      "defines marketing role",
+      "includes constraints like length or tone",
+      "specifies output structure"
+    ]
+  }
+]
