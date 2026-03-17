@@ -1,0 +1,14 @@
+[
+  {
+    "category": "Academic",
+    "title": "Research Summary",
+    "description": "Summarize a journal article for graduate students.",
+    "template": "[S] I am teaching a graduate research methods course.\\n[H] You are an academic writing assistant.\\n[A] Summarize the following article.\\n[R] Keep it under 250 words and use clear language.\\n[P] Present the output as a paragraph followed by 3 bullet-point takeaways."
+  },
+  {
+    "category": "Marketing",
+    "title": "Social Media Captions",
+    "description": "Generate social content for a product launch.",
+    "template": "[S] I am launching a new skincare serum for women aged 25-35.\\n[H] You are a social media strategist for beauty brands.\\n[A] Write 5 Instagram captions for the launch.\\n[R] Keep each under 150 characters and include 3 hashtags.\\n[P] Present as a numbered list."
+  }
+]
