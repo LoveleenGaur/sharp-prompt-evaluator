@@ -23,6 +23,8 @@ def show():
     for item in task["success_criteria"]:
         st.write(f"- {item}")
 
+    st.info("💡 Tip: Use SHARP — include role, context, task, rules, and output format.")
+
     student_prompt = st.text_area("Write your prompt draft here", height=180)
 
     if st.button("Save practice attempt"):
@@ -36,14 +38,15 @@ def show():
             st.success("Practice attempt saved. Now open Evaluate Prompt to score it.")
         else:
             st.warning("Please write a prompt first.")
-            st.markdown("---")
-st.subheader("📂 Previous Attempts")
 
-attempts = st.session_state.get("practice_attempts", [])
+    st.markdown("---")
+    st.subheader("📂 Previous Attempts")
 
-if attempts:
-    for i, a in enumerate(attempts[::-1], 1):
-        with st.expander(f"Attempt {i} — {a['task']}"):
-            st.write(a["prompt"])
-else:
-    st.write("No attempts yet.")
+    attempts = st.session_state.get("practice_attempts", [])
+
+    if attempts:
+        for i, a in enumerate(attempts[::-1], 1):
+            with st.expander(f"Attempt {i} — {a['task']}"):
+                st.write(a["prompt"])
+    else:
+        st.write("No attempts yet.")
