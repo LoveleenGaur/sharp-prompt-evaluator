@@ -1,14 +1,122 @@
 [
   {
-    "category": "Academic",
-    "title": "Research Summary",
-    "description": "Summarize a journal article for graduate students.",
-    "template": "[S] I am teaching a graduate research methods course.\\n[H] You are an academic writing assistant.\\n[A] Summarize the following article.\\n[R] Keep it under 250 words and use clear language.\\n[P] Present the output as a paragraph followed by 3 bullet-point takeaways."
+    "category": "Marketing",
+    "title": "Product Launch Campaign",
+    "description": "Create a launch campaign for a new consumer product.",
+    "template": "[S] We are launching a new organic skincare serum for women aged 25-35 in urban markets. [H] You are a digital marketing strategist. [A] Create a 2-week product launch campaign plan. [R] Include social media, email, and influencer activities. Keep the tone modern and brand-focused. [P] Present the output as a table with channel, activity, objective, and timeline."
   },
   {
     "category": "Marketing",
-    "title": "Social Media Captions",
-    "description": "Generate social content for a product launch.",
-    "template": "[S] I am launching a new skincare serum for women aged 25-35.\\n[H] You are a social media strategist for beauty brands.\\n[A] Write 5 Instagram captions for the launch.\\n[R] Keep each under 150 characters and include 3 hashtags.\\n[P] Present as a numbered list."
+    "title": "Instagram Caption Set",
+    "description": "Generate short promotional captions for social media.",
+    "template": "[S] A wellness brand is promoting a new mindfulness app for working professionals. [H] You are a social media copywriter. [A] Write 5 Instagram captions for the launch. [R] Keep each caption under 150 characters and include 3 relevant hashtags. [P] Present the output as a numbered list."
+  },
+  {
+    "category": "Human Resources",
+    "title": "Remote Work Policy",
+    "description": "Draft a structured HR policy document.",
+    "template": "[S] A growing technology company is formalizing remote work for employees across multiple locations. [H] You are an HR policy specialist. [A] Draft a remote work policy. [R] Include eligibility, attendance expectations, communication norms, performance expectations, and security compliance. [P] Present the output with headings and bullet points."
+  },
+  {
+    "category": "Human Resources",
+    "title": "Employee Engagement Survey",
+    "description": "Create HR survey questions for employee engagement.",
+    "template": "[S] Our company wants to measure employee engagement after a major restructuring. [H] You are an organizational development expert. [A] Create 12 employee engagement survey questions. [R] Include a mix of rating-scale and open-ended questions. Keep the tone neutral and professional. [P] Present the questions in a numbered list with the question type clearly marked."
+  },
+  {
+    "category": "Finance",
+    "title": "Budget Analysis",
+    "description": "Explain and analyze a budgeting approach.",
+    "template": "[S] I am teaching budgeting techniques to MBA students. [H] You are a finance professor. [A] Explain zero-based budgeting with a practical example. [R] Include definition, advantages, disadvantages, and a short business example. Keep it under 400 words. [P] Present the output in four labeled sections."
+  },
+  {
+    "category": "Finance",
+    "title": "Investment Recommendation Memo",
+    "description": "Draft a financial recommendation memo.",
+    "template": "[S] A mid-sized company is evaluating whether to invest in a new software platform. [H] You are a corporate finance analyst. [A] Write an investment recommendation memo. [R] Include cost considerations, expected benefits, financial risks, and payback logic. Keep the tone formal and executive-ready. [P] Present the output as a memo with recommendation at the end."
+  },
+  {
+    "category": "Strategy",
+    "title": "Market Entry Strategy",
+    "description": "Develop a strategy for entering a new market.",
+    "template": "[S] A SaaS company wants to expand into Southeast Asia. [H] You are a business strategy consultant. [A] Create a market entry strategy. [R] Include customer segment, go-to-market model, risks, and competitive considerations. [P] Present the output as a strategic framework with short sections and bullet points."
+  },
+  {
+    "category": "Strategy",
+    "title": "SWOT-Based Strategic Plan",
+    "description": "Use SWOT analysis to guide strategy.",
+    "template": "[S] A retail brand is facing strong online competition and wants to reposition itself. [H] You are a strategic management expert. [A] Create a strategic response using SWOT analysis. [R] Include strengths, weaknesses, opportunities, threats, and 5 recommended actions. [P] Present the output as a SWOT table followed by an action plan."
+  },
+  {
+    "category": "Operations",
+    "title": "Supply Chain Improvement",
+    "description": "Identify ways to improve operational efficiency.",
+    "template": "[S] A manufacturing company is facing delivery delays and rising logistics costs. [H] You are an operations consultant. [A] Suggest 5 ways to improve supply chain efficiency. [R] Focus on practical, implementable actions and mention possible trade-offs. [P] Present the output as a numbered recommendation list."
+  },
+  {
+    "category": "Operations",
+    "title": "Process Improvement Plan",
+    "description": "Improve an internal business process.",
+    "template": "[S] A customer support department has long response times and inconsistent service quality. [H] You are a process improvement specialist. [A] Create a process improvement plan. [R] Include bottlenecks, root causes, and improvement steps. [P] Present the output with sections for problem, diagnosis, and recommendations."
+  },
+  {
+    "category": "Leadership",
+    "title": "Leadership Development Advice",
+    "description": "Create leadership improvement guidance.",
+    "template": "[S] A newly promoted team leader is struggling to motivate a cross-functional team. [H] You are a leadership coach. [A] Provide 5 strategies to improve team motivation and trust. [R] Use simple language, practical steps, and one example for each strategy. [P] Present the output in a numbered format."
+  },
+  {
+    "category": "Leadership",
+    "title": "Conflict Resolution Guidance",
+    "description": "Help leaders resolve workplace tension.",
+    "template": "[S] Two department managers are in conflict over resource allocation, affecting team morale. [H] You are an executive coach specializing in conflict resolution. [A] Suggest a leadership approach to resolve the issue. [R] Include communication tactics, meeting structure, and follow-up. [P] Present the output as a 3-phase action plan."
+  },
+  {
+    "category": "Business Communication",
+    "title": "Client Onboarding Email",
+    "description": "Write a professional onboarding message.",
+    "template": "[S] A consulting firm has signed a new corporate client. [H] You are a business communication expert. [A] Write a client onboarding email. [R] Keep the tone warm, professional, and concise. Mention next steps and expected timeline. [P] Present the output as a polished email draft with subject line."
+  },
+  {
+    "category": "Business Communication",
+    "title": "Executive Summary",
+    "description": "Condense a business report into key highlights.",
+    "template": "[S] A senior manager needs a short summary of a long internal project report. [H] You are an executive communication specialist. [A] Write a one-page executive summary. [R] Focus on key findings, risks, and recommendations. Avoid technical jargon. [P] Present the output with headings and bullet points."
+  },
+  {
+    "category": "Business Analytics",
+    "title": "Customer Churn Analysis",
+    "description": "Structure a data interpretation prompt.",
+    "template": "[S] A telecom company has customer churn data and wants insight into retention drivers. [H] You are a business analyst. [A] Analyze likely churn factors and recommend actions. [R] Use a data-driven tone and include assumptions clearly. [P] Present the output as insights followed by recommendations."
+  },
+  {
+    "category": "Business Analytics",
+    "title": "KPI Dashboard Interpretation",
+    "description": "Interpret business KPIs for management.",
+    "template": "[S] A retail manager is reviewing monthly KPIs including revenue, conversion, churn, and customer satisfaction. [H] You are a business intelligence analyst. [A] Interpret the KPI trends and identify 3 action priorities. [R] Keep it concise and practical for decision-making. [P] Present the output as a short executive briefing."
+  },
+  {
+    "category": "Project Management",
+    "title": "Project Plan Outline",
+    "description": "Create a structured project plan.",
+    "template": "[S] A company is implementing a new CRM system over 3 months. [H] You are a project manager. [A] Create a project plan outline. [R] Include milestones, stakeholders, risks, and dependencies. [P] Present the output as a table with timeline and ownership."
+  },
+  {
+    "category": "Project Management",
+    "title": "Risk Register Prompt",
+    "description": "Generate a risk register for a business project.",
+    "template": "[S] A digital transformation initiative is being launched across multiple departments. [H] You are a project risk manager. [A] Create a risk register. [R] Include risk description, probability, impact, mitigation, and owner. [P] Present the output as a structured table."
+  },
+  {
+    "category": "Entrepreneurship",
+    "title": "Startup Idea Evaluation",
+    "description": "Evaluate a new venture idea.",
+    "template": "[S] An entrepreneur wants to validate a subscription-based mental wellness platform for students. [H] You are a startup mentor and business model advisor. [A] Evaluate the startup idea. [R] Assess problem-solution fit, market demand, risks, and monetization. [P] Present the output as a balanced evaluation with strengths, risks, and next steps."
+  },
+  {
+    "category": "Consulting",
+    "title": "Business Diagnostic Prompt",
+    "description": "Diagnose a company problem like a consultant.",
+    "template": "[S] A mid-sized retail company is seeing declining profitability despite stable sales. [H] You are a management consultant. [A] Diagnose possible causes and propose next steps. [R] Consider pricing, cost structure, customer behavior, and operations. [P] Present the output as a diagnosis followed by recommendations."
   }
 ]
