@@ -1,23 +1,41 @@
 [
   {
-    "title": "Academic Summary Prompt",
-    "task": "Write a prompt that asks AI to summarize a research article for MBA students.",
+    "title": "Marketing Campaign",
+    "task": "Create a marketing campaign for a new fitness app targeting working professionals.",
+    "difficulty": "Intermediate",
+    "domain": "Marketing",
+    "hint": "Think about target audience, channels, tone, and expected output format.",
     "success_criteria": [
-      "includes audience context",
-      "defines the AI role",
-      "states the task clearly",
-      "sets length or tone rules",
-      "defines output format"
+      "Defines clear target audience",
+      "Includes channels",
+      "Mentions tone and style",
+      "Specifies output format"
     ]
   },
   {
-    "title": "Marketing Email Prompt",
-    "task": "Write a prompt asking AI to draft a product launch email for a skincare brand.",
+    "title": "HR Policy Design",
+    "task": "Design a remote work policy for a growing tech startup.",
+    "difficulty": "Beginner",
+    "domain": "Human Resources",
+    "hint": "Think about eligibility, rules, expectations, and document structure.",
     "success_criteria": [
-      "defines target audience",
-      "defines marketing role",
-      "includes constraints like length or tone",
-      "specifies output structure"
+      "Defines eligibility criteria",
+      "Mentions rules and expectations",
+      "Includes compliance considerations",
+      "Uses clear structure"
+    ]
+  },
+  {
+    "title": "Business Strategy",
+    "task": "Create a growth strategy for a SaaS company entering a new market.",
+    "difficulty": "Advanced",
+    "domain": "Strategy",
+    "hint": "Think about market analysis, growth goals, constraints, and final format.",
+    "success_criteria": [
+      "Includes market analysis",
+      "Defines business objective",
+      "Lists actionable steps",
+      "Uses a structured output"
     ]
   }
 ]
